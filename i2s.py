@@ -13,7 +13,7 @@ def i2s(dig):
 	sel_0 = ('','тысяч','миллио','');
 	ok_2 = ('нов', 'н','на','на','на','нов','нов','нов','нов','нов','нов','нов')
 	ok_2_ext = ('нов', 'нов','нов','нов','нов','нов','нов','нов','нов','нов','нов','нов')
-	ok_1 = ('', 'а','и','и','и','и','','','','','','')
+	ok_1 = ('', 'а','и','и','и','','','','','','','')
 	ok_empty = ('', '','','','','','','','','','','')
 
 	s = ''
@@ -58,11 +58,17 @@ def i2s(dig):
 
 			# получаем название триады
 
-			if (dstep[2] == 1  or dstep[2] == 2) and step_count == 1:
+			# это случай одна/две. 
+			# print ("join=%d %d %d" % (dstep[0],dstep[1],dstep[2]))
+
+			if (dstep[2] == 1  or dstep[2] == 2) and step_count==1 and base3 != abase:
 				out_array[2] = ebase[dstep[2]]
 
 			if step_count == 1:
-				ok = ok_1
+				if base3 == abase:
+					ok = ok_empty
+				else:
+					ok = ok_1
 			elif step_count == 2:
 				if base3 == abase:
 					ok = ok_2_ext
@@ -113,9 +119,15 @@ if __name__ == '__main__':
 
 	parser = OptionParser()
 	parser.add_option("--get", dest="d")
+	parser.add_option("--beg", dest="b")
+	parser.add_option("--end", dest="e")
+	parser.add_option("--step", dest="s")
 	(options, args) = parser.parse_args()
 	if options.d:
 		print ("!%s!" % i2s(options.d))
+	if options.b and options.e:
+		for d in range(int(options.b), int(options.e),(int(options.s) if options.s else 1)):
+			print ("!%s!" % i2s(str(d)))
 
 	exit();
 
