@@ -9,6 +9,11 @@ use strict;
 # 	print "$d\t".(i2s($d))."\n";
 # }
 
+if ($ARGV[0] eq '--get' ){
+	print "!".(i2s($ARGV[1]))."!\n";
+	exit();
+}
+
 for (my $d=1000000;$d<=999000000;$d=$d+999999){
 	print "$d\t".(i2s($d))."\n";
 }
@@ -95,6 +100,7 @@ sub i2s{
 
 	# $out = rusUc($out);
 	$out =~ s/\s{2,}/ /g;
+	$out =~ s/^\s*(.+?)\s$/$1/;
 	return $out;
 }
 

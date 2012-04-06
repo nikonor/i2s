@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import re
+from optparse import OptionParser
 
 
 def i2s(dig):
@@ -109,6 +110,14 @@ if __name__ == '__main__':
 	# for i in range(1000000,100000000,1000000):
 	# 	# i2s(i)
 	# 	print ("!%d!%s!" % (i,i2s(i)))
+
+	parser = OptionParser()
+	parser.add_option("--get", dest="d")
+	(options, args) = parser.parse_args()
+	if options.d:
+		print ("!%s!" % i2s(options.d))
+
+	exit();
 
 	f = open('list_4_test.txt','r')
 	for s in f.readlines():
